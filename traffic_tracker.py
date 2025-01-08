@@ -54,14 +54,16 @@ while True:
   consecutive_errors = 0
 
   duration_minutes = int(response.json()['routes'][0]['duration'][:-1]) // 60
-  if duration_minutes <= 35:
-    sms.send(random.choice(messages.short_duration_messages(duration_minutes)))
+  if duration_minutes <= 28:
+    sms.send(random.choice(messages.short_duration_messages(duration_minutes)), secrets.recipient_phone_numbers[0])
+    sms.send(messages.notification_message(duration_minutes), secrets.recipient_phone_numbers[1])
     print("Notification sent. Exiting...")
     exit(0)
 
   current_time = datetime.now()
-  seven_pm = current_time.replace(hour=19, minute=0, second=0, microsecond=0)
-  if current_time >= seven_pm:
-    sms.send(random.choice(messages.long_duration_messages(duration_minutes)))
+  seven_thirty_pm = current_time.replace(hour=19, minute=30, second=0, microsecond=0)
+  if current_time >= seven_thirty_pm:
+    sms.send(random.choice(messages.long_duration_messages(duration_minutes)), secrets.recipient_phone_numbers[0])
+    sms.send(messages.notification_message(duration_minutes), secrets.recipient_phone_numbers[1])
     print("Notification sent. Exiting...")
     exit(1)

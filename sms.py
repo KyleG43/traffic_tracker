@@ -8,8 +8,8 @@ carrier_email_extensions = {
 	'verizon': '@vtext.com'
 }
 
-def send(message):
-	recipient_address = secrets.recipient_phone_number[0] + carrier_email_extensions[secrets.recipient_phone_number[1]]
+def send(message, recipient_phone_number):
+	recipient_address = recipient_phone_number[0] + carrier_email_extensions[recipient_phone_number[1]]
 	auth = (secrets.gmail_address, secrets.gmail_password)
 
 	server = smtplib.SMTP("smtp.gmail.com", 587)
