@@ -2,7 +2,7 @@ from data import secrets
 import smtplib
 
 carrier_email_extensions = {
-	'att': '@mms.att.net',
+	'att': '@txt.att.net',
 	'sprint': '@page.nextel.com',
 	'tmobile': '@tmomail.net',
 	'verizon': '@vtext.com'
