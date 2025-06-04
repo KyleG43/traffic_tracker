@@ -20,10 +20,10 @@ headers = {
 
 payload = {
   'origin': {
-    'address': secrets.addresses['work']
+    'address': secrets.work_profiles[1]['address']
   },
   'destination': {
-    'address': secrets.addresses['home']
+    'address': secrets.home_address
   },
   'travelMode': 'DRIVE',
   'routingPreference': 'TRAFFIC_AWARE_OPTIMAL',
@@ -54,15 +54,15 @@ while True:
   consecutive_errors = 0
 
   duration_minutes = int(response.json()['routes'][0]['duration'][:-1]) // 60
-  if duration_minutes <= 30:
+  if duration_minutes <= secrets.work_profiles[1]['duration_minutes']:
     sms.send(random.choice(messages.short_duration_messages(duration_minutes)), secrets.recipient_phone_numbers[0])
     sms.send(messages.notification_message(duration_minutes), secrets.recipient_phone_numbers[1])
     print("Notification sent. Exiting...")
     exit(0)
 
   current_time = datetime.now()
-  seven_thirty_pm = current_time.replace(hour=18, minute=30, second=0, microsecond=0)
-  if current_time >= seven_thirty_pm:
+  six_thirty_pm = current_time.replace(hour=18, minute=30, second=0, microsecond=0)
+  if current_time >= six_thirty_pm:
     sms.send(random.choice(messages.long_duration_messages(duration_minutes)), secrets.recipient_phone_numbers[0])
     sms.send(messages.notification_message(duration_minutes), secrets.recipient_phone_numbers[1])
     print("Notification sent. Exiting...")
